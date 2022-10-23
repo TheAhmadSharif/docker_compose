@@ -1,0 +1,17 @@
+version: '3.0'
+
+services:
+  service1:
+    image: services/services1
+    dockerfile: node.dockerfile
+    ports:
+      - "8001:8001"
+    links:
+      - "service2"
+    depends_on:
+      - nodejs
+  service2:
+    image: services/services2
+    dockerfile: .docker/node.dockerfile
+    ports:
+      - "8000:8000"
