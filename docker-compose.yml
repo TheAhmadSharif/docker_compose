@@ -1,17 +1,25 @@
-version: '3.0'
-
+version: '3.9'
 services:
   service1:
-    image: services/services1
-    dockerfile: node.dockerfile
+    image: sample-express-app
+    build: .
+    expose:
+      - "8001"
+    networks:
+      - backend
     ports:
       - "8001:8001"
-    links:
-      - "service2"
-    depends_on:
-      - nodejs
+
   service2:
-    image: services/services2
-    dockerfile: .docker/node.dockerfile
+    image: sample-express-app
+    networks:
+      - backend
     ports:
-      - "8000:8000"
+      - "8004:8004"
+    expose:
+      - "8004"
+    command: sh
+
+networks:
+  backend:
+    driver: bridge
